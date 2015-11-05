@@ -20,18 +20,18 @@ defmodule NormalizeUrl do
   
   Returns a url as a string.
   """
-  def normalize(url, options \\ %{}) do
-    options = Dict.merge(
-      options, %{
-        normalize_protocol: true,
-        strip_www: true,
-        strip_fragment: true
-      }
-    )
+  def normalize(url, options \\ []) do
+    options = Keyword.merge([
+      normalize_protocol: true,
+      strip_www: true,
+      strip_fragment: true
+    ], options)
+
+    IO.puts inspect(options)
 
     scheme = ""
+    url = if Regex.match?(~r/^\/\//, url), do: "http:" <> url, else: url
     if options[:normalize_protocol] do
-      url = if Regex.match?(~r/^\/\//, url), do: "http:" <> url, else: url
       scheme = "http://"
     else
       scheme = "//"
@@ -53,6 +53,10 @@ defmodule NormalizeUrl do
       port = ""
       scheme = "http://"
     end
+
+    IO.puts inspect(uri)
+    IO.puts inspect(port)
+    IO.puts inspect(uri.host <> port)
 
     host_and_path = if uri.path, do: uri.host <> port <> uri.path, else: uri.host <> port
 

@@ -7,7 +7,7 @@ defmodule NormalizeUrlTest do
   end
 
   test "strips a relative protocol and replaces with http" do
-    assert(NormalizeUrl.normalize("//google.com") == "http://google.com")
+    assert(NormalizeUrl.normalize("//google.com", [normalize_protocol: false]) == "http://google.com")
   end
 
   test "adds the correct protocol if 8080 is specified" do
