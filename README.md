@@ -1,4 +1,4 @@
-# NormalizeUrl
+# NormalizeUrl [![Build Status](https://travis-ci.org/johnotander/normalize_url.svg?branch=master)](https://travis-ci.org/johnotander/normalize_url)
 
 **TODO: Add description**
 
