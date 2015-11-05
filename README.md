@@ -1,29 +1,34 @@
 # NormalizeUrl [![Build Status](https://travis-ci.org/johnotander/normalize_url.svg?branch=master)](https://travis-ci.org/johnotander/normalize_url)
 
-Normalize](https://en.wikipedia.org/wiki/URL_normalization) a url. This is useful for displaying, storing, sorting, etc.
+[Normalize](https://en.wikipedia.org/wiki/URL_normalization) a url. This is useful for displaying, storing, sorting, etc.
 
 ## Usage
 
 ```elixir
-NormalizeUrl.normalize("https://www.google.com?b=b&a=a") # => "https://google.com?a=a&b=b"
-NormalizeUrl.normalize("//foo.bar#about") # => "http://foo.bar"
+NormalizeUrl.normalize("https://www.google.com?b=b&a=a")
+# => "https://google.com?a=a&b=b"
+
+NormalizeUrl.normalize("//foo.bar#about")
+# => "http://foo.bar"
 ```
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
+Add normalize_url to your list of dependencies in `mix.exs`
 
-  1. Add normalize_url to your list of dependencies in `mix.exs`:
+```elixir
+def deps do
+  [{:normalize_url, "~> 0.0.1"}]
+end
+```
 
-        def deps do
-          [{:normalize_url, "~> 0.0.1"}]
-        end
+Ensure normalize_url is started before your application
 
-  2. Ensure normalize_url is started before your application:
-
-        def application do
-          [applications: [:normalize_url]]
-        end
+```elixir
+def application do
+  [applications: [:normalize_url]]
+end
+```
 
 ## Tests
 
