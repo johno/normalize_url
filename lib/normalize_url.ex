@@ -2,7 +2,7 @@ defmodule NormalizeUrl do
   @moduledoc """
   The base module of NormalizeUrl.
 
-  It exposes a single method, normalize.
+  It exposes a single function, normalize.
   """
 
   @doc """
