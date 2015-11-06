@@ -2,7 +2,7 @@ defmodule NormalizeUrl do
   @moduledoc """
   The base module of NormalizeUrl.
 
-  It exposes a single function, normalize.
+  It exposes a single function, normalize_url.
   """
 
   @doc """
@@ -20,7 +20,7 @@ defmodule NormalizeUrl do
   
   Returns a url as a string.
   """
-  def normalize(url, options \\ []) do
+  def normalize_url(url, options \\ []) do
     options = Keyword.merge([
       normalize_protocol: true,
       strip_www: true,

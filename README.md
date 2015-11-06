@@ -5,28 +5,28 @@
 ## Usage
 
 ```elixir
-NormalizeUrl.normalize("https://www.google.com?b=b&a=a")
+NormalizeUrl.normalize_url("https://www.google.com?b=b&a=a")
 # => "https://google.com?a=a&b=b"
 
-NormalizeUrl.normalize("//foo.bar#about")
+NormalizeUrl.normalize_url("//foo.bar#about")
 # => "http://foo.bar"
 ```
 
 ## Installation
 
-Add normalize_url to your list of dependencies in `mix.exs`
+Add.normalize_url_url to your list of dependencies in `mix.exs`
 
 ```elixir
 def deps do
-  [{:normalize_url, "~> 0.0.1"}]
+  [{.normalize_url_url, "~> 0.0.1"}]
 end
 ```
 
-Ensure normalize_url is started before your application
+Ensure.normalize_url_url is started before your application
 
 ```elixir
 def application do
-  [applications: [:normalize_url]]
+  [applications: [.normalize_url_url]]
 end
 ```
 
@@ -40,10 +40,10 @@ Default: `true`
 Remove `www.` from the url
 
 ```elixir
-NormalizeUrl.normalize("http://www.johnotander.com")
+NormalizeUrl.normalize_url("http://www.johnotander.com")
 # => "http://johnotander.com"
 
-NormalizeUrl.normalize("http://www.johnotander.com", [strip_www: false])
+NormalizeUrl.normalize_url("http://www.johnotander.com", [strip_www: false])
 # => "http://www.johnotander.com"
 ```
 
@@ -55,14 +55,14 @@ Default: `true`
 Remove `#framents` from the url
 
 ```elixir
-NormalizeUrl.normalize("http://johnotander.com#about.html")
+NormalizeUrl.normalize_url("http://johnotander.com#about.html")
 # => "http://johnotander.com"
 
-NormalizeUrl.normalize("http://www.johnotander.com", [strip_fragment: false])
+NormalizeUrl.normalize_url("http://www.johnotander.com", [strip_fragment: false])
 # => "http://johnotander.com#about.html"
 ```
 
-##### normalize_protocol
+#####.normalize_url_protocol
 
 Type: `boolean`   
 Default: `true`
@@ -70,18 +70,22 @@ Default: `true`
 Normalize relative protocols
 
 ```elixir
-NormalizeUrl.normalize("//johnotander.com#about")
+NormalizeUrl.normalize_url("//johnotander.com#about")
 # => "http://johnotander.com"
 
-NormalizeUrl.normalize("//www.johnotander.com", [normalize_protocol: false])
+NormalizeUrl.normalize_url("//www.johnotander.com", .normalize_url_protocol: false])
 # => "//johnotander.com"
 ```
 
-## Tests
+## Development
 
 ```
 mix test
 ```
+
+## Related
+
+* Elixir port from the [node module](https://github.com/sindresorhus.normalize_url-url) by [Sindre Sorhus](https://github.com/sindresorhus).
 
 ## License
 
