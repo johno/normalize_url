@@ -6,6 +6,18 @@ defmodule NormalizeUrlTest do
     assert(NormalizeUrl.normalize_url("google.com") == "http://google.com")
   end
 
+  test "handles ftp protocols" do
+    assert(NormalizeUrl.normalize_url("ftp://google.com") == "ftp://google.com")
+  end
+
+  test "handles ftp protocols with fragments" do
+    assert(NormalizeUrl.normalize_url("ftp://google.com#blah") == "ftp://google.com")
+  end
+
+  test "handles a url that starts with ftp" do
+    assert(NormalizeUrl.normalize_url("ftp.com") == "http://ftp.com")
+  end
+
   test "strips a relative protocol and replaces with http" do
     assert(NormalizeUrl.normalize_url("//google.com") == "http://google.com")
   end

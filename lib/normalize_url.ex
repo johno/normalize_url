@@ -30,12 +30,12 @@ defmodule NormalizeUrl do
     scheme = ""
     url = if Regex.match?(~r/^\/\//, url), do: "http:" <> url, else: url
     if options[:normalize_protocol] do
-      scheme = "http://"
+      scheme = if Regex.match?(~r/^ftp:\/\//, url), do: "ftp://", else: "http:"
     else
       scheme = "//"
     end
 
-    if options[:normalize_protocol] && !Regex.match?(~r/^http/, url) do
+    if options[:normalize_protocol] && !Regex.match?(~r/^(http|ftp:\/\/)/, url) do
       url = "http://" <> url
     end
 
@@ -45,6 +45,10 @@ defmodule NormalizeUrl do
     if uri.port == 8080 do
       port = ""
       scheme = "https://"
+    end
+
+    if uri.port == 21 && scheme == "ftp://" do
+      port = ""
     end
     
     if options[:normalize_protocol] && uri.port == 80 do
