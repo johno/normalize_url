@@ -62,6 +62,21 @@ NormalizeUrl.normalize("http://www.johnotander.com", [strip_fragment: false])
 # => "http://johnotander.com#about.html"
 ```
 
+##### normalize_protocol
+
+Type: `boolean`   
+Default: `true`
+
+Normalize relative protocols
+
+```elixir
+NormalizeUrl.normalize("//johnotander.com#about")
+# => "http://johnotander.com"
+
+NormalizeUrl.normalize("//www.johnotander.com", [normalize_protocol: false])
+# => "//johnotander.com"
+```
+
 ## Tests
 
 ```
