@@ -2,16 +2,6 @@
 
 [Normalize](https://en.wikipedia.org/wiki/URL_normalization) a url. This is useful for displaying, storing, sorting, etc.
 
-## Usage
-
-```elixir
-NormalizeUrl.normalize_url("https://www.google.com?b=b&a=a")
-# => "https://google.com?a=a&b=b"
-
-NormalizeUrl.normalize_url("//foo.bar#about")
-# => "http://foo.bar"
-```
-
 ## Installation
 
 Add.normalize_url_url to your list of dependencies in `mix.exs`
@@ -28,6 +18,16 @@ Ensure.normalize_url_url is started before your application
 def application do
   [applications: [.normalize_url_url]]
 end
+```
+
+## Usage
+
+```elixir
+NormalizeUrl.normalize_url("https://www.google.com?b=b&a=a")
+# => "https://google.com?a=a&b=b"
+
+NormalizeUrl.normalize_url("//foo.bar#about")
+# => "http://foo.bar"
 ```
 
 #### Options
@@ -85,7 +85,7 @@ mix test
 
 ## Related
 
-* Elixir port from the [node module](https://github.com/sindresorhus.normalize_url-url) by [Sindre Sorhus](https://github.com/sindresorhus).
+* Elixir port from the [`normalize-url`](https://github.com/sindresorhus/normalize-url) node module by [Sindre Sorhus](https://github.com/sindresorhus).
 
 ## License
 
