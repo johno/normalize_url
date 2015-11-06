@@ -47,6 +47,21 @@ NormalizeUrl.normalize("http://www.johnotander.com", [strip_www: false])
 # => "http://www.johnotander.com"
 ```
 
+##### strip_fragment
+
+Type: `boolean`   
+Default: `true`
+
+Remove `#framents` from the url
+
+```elixir
+NormalizeUrl.normalize("http://johnotander.com#about.html")
+# => "http://johnotander.com"
+
+NormalizeUrl.normalize("http://www.johnotander.com", [strip_fragment: false])
+# => "http://johnotander.com#about.html"
+```
+
 ## Tests
 
 ```
