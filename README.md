@@ -30,6 +30,23 @@ def application do
 end
 ```
 
+#### Options
+
+##### strip_www
+
+Type: `boolean`   
+Default: `true`
+
+Remove `www.` from the url
+
+```elixir
+NormalizeUrl.normalize("http://www.johnotander.com")
+# => "http://johnotander.com"
+
+NormalizeUrl.normalize("http://www.johnotander.com", [strip_www: false])
+# => "http://www.johnotander.com"
+```
+
 ## Tests
 
 ```
