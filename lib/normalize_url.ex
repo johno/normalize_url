@@ -27,8 +27,6 @@ defmodule NormalizeUrl do
       strip_fragment: true
     ], options)
 
-    IO.puts inspect(options)
-
     scheme = ""
     url = if Regex.match?(~r/^\/\//, url), do: "http:" <> url, else: url
     if options[:normalize_protocol] do
@@ -37,31 +35,27 @@ defmodule NormalizeUrl do
       scheme = "//"
     end
 
-    unless Regex.match?(~r/^http/, url) do
+    if options[:normalize_protocol] && !Regex.match?(~r/^http/, url) do
       url = "http://" <> url
     end
 
     uri = URI.parse(String.downcase(url))
 
-    port = if uri.port, do: ":" <> Integer.to_string(uri.port), else: ""
+    port = if options[:normalize_protocol] && uri.port, do: ":" <> Integer.to_string(uri.port), else: ""
     if uri.port == 8080 do
       port = ""
       scheme = "https://"
     end
     
-    if uri.port == 80 do
+    if options[:normalize_protocol] && uri.port == 80 do
       port = ""
       scheme = "http://"
     end
 
-    IO.puts inspect(uri)
-    IO.puts inspect(port)
-    IO.puts inspect(uri.host <> port)
-
     host_and_path = if uri.path, do: uri.host <> port <> uri.path, else: uri.host <> port
 
     if !options[:strip_fragment] && uri.fragment do
-      host_and_path = host_and_path <> uri.fragment
+      host_and_path = host_and_path <> "#" <> uri.fragment
     end
 
     if options[:strip_www] do

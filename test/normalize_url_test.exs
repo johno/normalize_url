@@ -7,7 +7,7 @@ defmodule NormalizeUrlTest do
   end
 
   test "strips a relative protocol and replaces with http" do
-    assert(NormalizeUrl.normalize("//google.com", [normalize_protocol: false]) == "http://google.com")
+    assert(NormalizeUrl.normalize("//google.com") == "http://google.com")
   end
 
   test "adds the correct protocol if 8080 is specified" do
@@ -28,5 +28,17 @@ defmodule NormalizeUrlTest do
 
   test "strips www" do
     assert(NormalizeUrl.normalize("www.johnotander.com") == "http://johnotander.com")
+  end
+
+  test "does not strip a relative protocol with option normalize_protocol: false" do
+    assert(NormalizeUrl.normalize("//google.com", [normalize_protocol: false]) == "//google.com")
+  end
+
+  test "does not strip www with option strip_www: false" do
+    assert(NormalizeUrl.normalize("www.google.com", [strip_www: false]) == "http://www.google.com")
+  end
+
+  test "does not strip a url fragment with option strip_fragment: false" do
+    assert(NormalizeUrl.normalize("www.google.com#about.html", [strip_fragment: false]) == "http://google.com#about.html")
   end
 end
