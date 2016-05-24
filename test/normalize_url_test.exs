@@ -53,4 +53,8 @@ defmodule NormalizeUrlTest do
   test "does not strip a url fragment with option strip_fragment: false" do
     assert(NormalizeUrl.normalize_url("www.google.com#about.html", [strip_fragment: false]) == "http://google.com#about.html")
   end
+
+  test "adds root path if enabled and needed" do
+    assert(NormalizeUrl.normalize_url("http://google.com", [add_root_path: true]) == "http://google.com/")
+  end
 end

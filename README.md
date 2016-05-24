@@ -77,6 +77,21 @@ NormalizeUrl.normalize_url("//www.johnotander.com", .normalize_url_protocol: fal
 # => "//johnotander.com"
 ```
 
+##### add_root_path
+
+Type: `boolean`   
+Default: `false`
+
+Adds a trailing slash for the root path, if the path is empty.
+
+```elixir
+NormalizeUrl.normalize_url("http://example.com")
+# => "http://example.com"
+
+NormalizeUrl.normalize_url("http://example.com", [add_root_path: true])
+# => "http://example.com/"
+```
+
 ## Development
 
 ```
