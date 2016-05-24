@@ -4,19 +4,19 @@
 
 ## Installation
 
-Add.normalize_url_url to your list of dependencies in `mix.exs`
+Add :normalize_url to your list of dependencies in `mix.exs`
 
 ```elixir
 def deps do
-  [{.normalize_url_url, "~> 0.0.1"}]
+  [{:normalize_url, "~> 0.0.2"}]
 end
 ```
 
-Ensure.normalize_url_url is started before your application
+Ensure :normalize_url is started before your application
 
 ```elixir
 def application do
-  [applications: [.normalize_url_url]]
+  [applications: [:normalize_url]]
 end
 ```
 
@@ -62,7 +62,7 @@ NormalizeUrl.normalize_url("http://www.johnotander.com", [strip_fragment: false]
 # => "http://johnotander.com#about.html"
 ```
 
-#####.normalize_url_protocol
+##### :normalize_protocol
 
 Type: `boolean`   
 Default: `true`
@@ -73,7 +73,7 @@ Normalize relative protocols
 NormalizeUrl.normalize_url("//johnotander.com#about")
 # => "http://johnotander.com"
 
-NormalizeUrl.normalize_url("//www.johnotander.com", .normalize_url_protocol: false])
+NormalizeUrl.normalize_url("//www.johnotander.com", :normalize_protocol: false])
 # => "//johnotander.com"
 ```
 
