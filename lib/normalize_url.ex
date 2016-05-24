@@ -42,7 +42,7 @@ defmodule NormalizeUrl do
     uri = URI.parse(String.downcase(url))
 
     port = if options[:normalize_protocol] && uri.port, do: ":" <> Integer.to_string(uri.port), else: ""
-    if uri.port == 8080 do
+    if uri.port == 8080 || uri.port == 443 do
       port = ""
       scheme = "https://"
     end

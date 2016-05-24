@@ -6,6 +6,14 @@ defmodule NormalizeUrlTest do
     assert(NormalizeUrl.normalize_url("google.com") == "http://google.com")
   end
 
+  test "keeps the http protocol" do
+    assert(NormalizeUrl.normalize_url("http://google.com") == "http://google.com")
+  end
+
+  test "keeps the https protocol" do
+    assert(NormalizeUrl.normalize_url("https://google.com") == "https://google.com")
+  end
+
   test "handles ftp protocols" do
     assert(NormalizeUrl.normalize_url("ftp://google.com") == "ftp://google.com")
   end
