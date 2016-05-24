@@ -73,7 +73,7 @@ Normalize relative protocols
 NormalizeUrl.normalize_url("//johnotander.com#about")
 # => "http://johnotander.com"
 
-NormalizeUrl.normalize_url("//www.johnotander.com", :normalize_protocol: false])
+NormalizeUrl.normalize_url("//www.johnotander.com", [normalize_protocol: false])
 # => "//johnotander.com"
 ```
 
