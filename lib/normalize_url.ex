@@ -17,14 +17,15 @@ defmodule NormalizeUrl do
   * `strip_www` - strip the www from the url, boolean
   * `strip_fragment` - strip the fragment from the url, boolean
   * `normalize_protocol` - prepend `http:` if the url is protocol relative, boolean
-  
+
   Returns a url as a string.
   """
   def normalize_url(url, options \\ []) do
     options = Keyword.merge([
       normalize_protocol: true,
       strip_www: true,
-      strip_fragment: true
+      strip_fragment: true,
+      add_root_path: false
     ], options)
 
     scheme = ""
@@ -50,13 +51,18 @@ defmodule NormalizeUrl do
     if uri.port == 21 && scheme == "ftp://" do
       port = ""
     end
-    
+
     if options[:normalize_protocol] && uri.port == 80 do
       port = ""
       scheme = "http://"
     end
 
-    host_and_path = if uri.path, do: uri.host <> port <> uri.path, else: uri.host <> port
+    path = uri.path
+    if options[:add_root_path] && is_nil(path) do
+      path = "/"
+    end
+
+    host_and_path = if path, do: uri.host <> port <> path, else: uri.host <> port
 
     if !options[:strip_fragment] && uri.fragment do
       host_and_path = host_and_path <> "#" <> uri.fragment
