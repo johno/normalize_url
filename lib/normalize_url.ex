@@ -21,6 +21,16 @@ defmodule NormalizeUrl do
   Returns a url as a string.
   """
   def normalize_url(url, options \\ []) do
+    %{scheme: scheme} = URI.parse(url)
+
+    if (scheme == "http") || (scheme == "ftp") || (scheme == nil) do
+      normalize_http_or_ftp_url(url, options)
+    else
+      url
+    end
+  end
+
+  defp normalize_http_or_ftp_url(url, options \\ []) do
     options = Keyword.merge([
       normalize_protocol: true,
       strip_www: true,
@@ -82,4 +92,5 @@ defmodule NormalizeUrl do
 
     scheme <> host_and_path <> query_params
   end
+
 end

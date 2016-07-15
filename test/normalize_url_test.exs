@@ -14,6 +14,14 @@ defmodule NormalizeUrlTest do
     assert(NormalizeUrl.normalize_url("https://google.com") == "https://google.com")
   end
 
+  test "keeps the mailto protocol" do
+    assert(NormalizeUrl.normalize_url("mailto:joe@example.com") == "mailto:joe@example.com")
+  end
+
+  test "keeps the javascript protocol" do
+    assert(NormalizeUrl.normalize_url("javascript:alert('hey')") == "javascript:alert('hey')")
+  end
+
   test "handles ftp protocols" do
     assert(NormalizeUrl.normalize_url("ftp://google.com") == "ftp://google.com")
   end
