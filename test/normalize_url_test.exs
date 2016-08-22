@@ -50,6 +50,10 @@ defmodule NormalizeUrlTest do
     assert(NormalizeUrl.normalize_url("google.com?b=foo&a=bar&123=hi") == "http://google.com?123=hi&a=bar&b=foo")
   end
 
+  test "encodes back query params" do
+    assert(NormalizeUrl.normalize_url("google.com?b=foo's+bar&a=joe+smith") == "http://google.com?a=joe+smith&b=foo%27s+bar")
+  end
+
   test "strips url fragment" do
     assert(NormalizeUrl.normalize_url("johnotander.com#about") == "http://johnotander.com")
   end

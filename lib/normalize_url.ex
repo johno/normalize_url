@@ -84,9 +84,7 @@ defmodule NormalizeUrl do
 
     query_params = ""
     if uri.query do
-      query_params_dict = URI.decode_query(uri.query)
-      sorted_query_params = Enum.map(query_params_dict, fn{k, v} -> "#{k}=#{v}" end)
-                            |> Enum.join("&")
+      sorted_query_params = uri.query |> URI.decode_query |> URI.encode_query
       query_params = "?" <> sorted_query_params
     end
 
