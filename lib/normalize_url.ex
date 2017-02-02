@@ -50,7 +50,11 @@ defmodule NormalizeUrl do
       url = "http://" <> url
     end
 
-    uri = URI.parse(String.downcase(url))
+    uri = if options[:downcase] do
+      URI.parse(String.downcase(url))
+    else
+      URI.parse(url)
+    end
 
     port = if options[:normalize_protocol] && uri.port, do: ":" <> Integer.to_string(uri.port), else: ""
     if uri.port == 8080 || uri.port == 443 do

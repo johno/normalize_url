@@ -77,4 +77,15 @@ defmodule NormalizeUrlTest do
   test "adds root path if enabled and needed" do
     assert(NormalizeUrl.normalize_url("http://google.com", [add_root_path: true]) == "http://google.com/")
   end
+
+  # Temporary patch, proper downcasing should only affect the host, not change the path, the protocol should always be downcase
+  describe "downcasing" do
+    test "does not downcase by default" do
+      assert(NormalizeUrl.normalize_url("http://example.com/Path/With/Upcase") == "http://example.com/Path/With/Upcase")
+    end
+
+    test "downcase if explicitly activated" do
+      assert(NormalizeUrl.normalize_url("http://example.com/Path/With/Upcase", [downcase: true]) == "http://example.com/path/with/upcase")
+    end
+  end
 end
