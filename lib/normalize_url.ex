@@ -40,8 +40,9 @@ defmodule NormalizeUrl do
 
     scheme = ""
     url = if Regex.match?(~r/^\/\//, url), do: "http:" <> url, else: url
+
     if options[:normalize_protocol] do
-      scheme = if Regex.match?(~r/^ftp:\/\//, url), do: "ftp://", else: "http:"
+      scheme = if Regex.match?(~r/^ftp:\/\//, url), do: "ftp://", else: "http://"
     else
       scheme = "//"
     end

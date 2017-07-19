@@ -78,6 +78,16 @@ defmodule NormalizeUrlTest do
     assert(NormalizeUrl.normalize_url("http://google.com", [add_root_path: true]) == "http://google.com/")
   end
 
+  test "handles URLs with port" do
+    assert NormalizeUrl.normalize_url("http://example.com:3000")      == "http://example.com:3000"
+    assert NormalizeUrl.normalize_url("https://example.com:3000")     == "https://example.com:3000"
+    assert NormalizeUrl.normalize_url("https://example.com:3000/dir") == "https://example.com:3000/dir"
+
+    # TODO: in these cases we should prefix with "http://"
+    assert NormalizeUrl.normalize_url("example.com:3000")             == "example.com:3000"
+    assert NormalizeUrl.normalize_url("example.com:3000/dir")         == "example.com:3000/dir"
+  end
+
   # Temporary patch, proper downcasing should only affect the host, not change the path, the protocol should always be downcase
   describe "downcasing" do
     test "does not downcase by default" do
