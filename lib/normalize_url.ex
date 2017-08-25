@@ -35,14 +35,14 @@ defmodule NormalizeUrl do
   defp filter_scheme(url) do
     %{scheme: scheme} = URI.parse(url)
 
-    if Enum.any?(accepted_schemes, &(&1 == scheme)), do: scheme, else: nil
+    if Enum.any?(accepted_schemes(), &(&1 == scheme)), do: scheme, else: nil
   end
 
   defp accepted_schemes do
-    iana_schemes ++ ["javascript"]
+    iana_schemes() ++ ["javascript"]
   end
 
-  defp normalize_http_or_ftp_url(url, options \\ []) do
+  defp normalize_http_or_ftp_url(url, options) do
     options = Keyword.merge([
       normalize_protocol: true,
       strip_www: true,
@@ -50,7 +50,6 @@ defmodule NormalizeUrl do
       add_root_path: false
     ], options)
 
-    scheme = ""
     url = if Regex.match?(~r/^\/\//, url), do: "http:" <> url, else: url
 
     if options[:normalize_protocol] do
@@ -99,14 +98,11 @@ defmodule NormalizeUrl do
       host_and_path = Regex.replace(~r/^www\./, host_and_path, "")
     end
 
-    query_params = ""
-    if uri.query do
-      sorted_query_params = uri.query |> URI.decode_query |> URI.encode_query
-      query_params = "?" <> sorted_query_params
-    end
-
-    scheme <> host_and_path <> query_params
+    scheme <> host_and_path <> query_params(uri.query)
   end
+
+  defp query_params(nil), do: ""
+  defp query_params(query), do: "?" <> (query |> URI.decode_query |> URI.encode_query)
 
   # Taken from https://www.iana.org/assignments/uri-schemes/uri-schemes.txt
   defp iana_schemes do
