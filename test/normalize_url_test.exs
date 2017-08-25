@@ -2,8 +2,11 @@ defmodule NormalizeUrlTest do
   use ExUnit.Case
   doctest NormalizeUrl
 
-  test "adds a protocol" do
-    assert(NormalizeUrl.normalize_url("google.com") == "http://google.com")
+  test "adds a protocol by default" do
+    assert(NormalizeUrl.normalize_url("example.com")          == "http://example.com")
+    assert(NormalizeUrl.normalize_url("example.com/dir")      == "http://example.com/dir")
+    assert(NormalizeUrl.normalize_url("example.com:3000")     == "http://example.com:3000")
+    assert(NormalizeUrl.normalize_url("example.com:3000/dir") == "http://example.com:3000/dir")
   end
 
   test "keeps the http protocol" do
@@ -76,6 +79,14 @@ defmodule NormalizeUrlTest do
 
   test "adds root path if enabled and needed" do
     assert(NormalizeUrl.normalize_url("http://google.com", [add_root_path: true]) == "http://google.com/")
+  end
+
+  test "handles URLs with port" do
+    assert NormalizeUrl.normalize_url("http://example.com:3000")      == "http://example.com:3000"
+    assert NormalizeUrl.normalize_url("https://example.com:3000")     == "https://example.com:3000"
+    assert NormalizeUrl.normalize_url("https://example.com:3000/dir") == "https://example.com:3000/dir"
+    assert NormalizeUrl.normalize_url("example.com:3000")             == "http://example.com:3000"
+    assert NormalizeUrl.normalize_url("example.com:3000/dir")         == "http://example.com:3000/dir"
   end
 
   # Temporary patch, proper downcasing should only affect the host, not change the path, the protocol should always be downcase
